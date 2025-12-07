@@ -1,0 +1,19 @@
+en
+conf t
+ho R7
+
+int loopback 0
+ip add 10.255.2.7 255.255.255.255
+no shutdown
+
+int g0/0
+ip add 10.2.0.3 255.255.255.0
+no shutdown
+
+int g0/1
+ip add 10.2.2.1 255.255.255.0
+no shutdown
+
+end
+sh ip int b
+copy run start

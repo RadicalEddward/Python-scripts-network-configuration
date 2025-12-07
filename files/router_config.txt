@@ -1,0 +1,11 @@
+en
+conf t
+ho B
+
+int B
+ip add B B
+no shutdown
+
+end
+sh ip int b
+copy run start
