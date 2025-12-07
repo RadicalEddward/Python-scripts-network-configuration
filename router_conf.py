@@ -1,12 +1,13 @@
 ## Script start
 def router(num_router):
     # write en + conf t (always)
-    file_path = f"./files/router_{num_router}_config.txt"
+    
     with open(file_path, 'w') as writer:
         writer.write("en\nconf t\n")
 
     # hostname configuration (if empty will be skipped)
     hostname = input("What hostname for the router? ")
+    file_path = f"./files/config_router_{hostname}.txt"
     if hostname:
         with open(file_path, 'a') as writer:
             writer.write('ho ' + hostname + '\n')
