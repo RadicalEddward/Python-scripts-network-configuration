@@ -48,7 +48,7 @@ def prefix_to_mask(prefix_length):
 def router(num_router):
     # hostname configuration (if empty will be skipped)
     hostname = input("What hostname for the router? ")
-    file_path = f"./files/config_router_{hostname}.txt"
+    file_path = f"config_router_{hostname}.txt"
     
     # write en + conf t (always)
     with open(file_path, 'w') as writer:
@@ -64,10 +64,10 @@ def router(num_router):
         # which interface to configure
         int_name = input(f"What's the name of interface {i+1}? ")
         # int ip address + subnet mask
-        int_address = input("What's its IP address? ")
-        int_subnet = input("What's the subnet? ")
+        int_address_slash = input("What's its IP address? [use slash notation] ")
+        int_add_dotted_decimal = convert_slash_notation(int_address_slash)
         # full text of interface configuration
-        int_conf_lines = '\nint ' + int_name + '\nip add ' + int_address + ' ' + int_subnet + '\nno shutdown\n'
+        int_conf_lines = '\nint ' + int_name + '\nip add ' + int_add_dotted_decimal + '\nno shutdown\n'
         # append interface conf to file
         with open(file_path, 'a') as writer:
             writer.write(int_conf_lines)
@@ -77,6 +77,6 @@ def router(num_router):
         writer.write('\nend' + '\nsh ip int b' + '\ncopy run start\n')
 
 
-# num_routers = int(input("How many routers to set up? "))
-# for i in range(num_routers):
-#     router(i)
+num_routers = int(input("How many routers to set up? "))
+for i in range(num_routers):
+    router(i)

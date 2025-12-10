@@ -1,0 +1,11 @@
+en
+conf t
+ho R
+
+int g0/0
+ip add 10.0.0.1 255.255.255.0
+no shutdown
+
+end
+sh ip int b
+copy run start
