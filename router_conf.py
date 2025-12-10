@@ -10,12 +10,12 @@ def convert_slash_notation(slash_notation):
     slash_notation = slash_notation.strip()
     position_slash = slash_notation.find('/')
     ip_add = slash_notation[:position_slash]
-    prefix_length = slash_notation[position_slash+1:]
+    prefix_length = int(slash_notation[position_slash+1:])
 
     # convert prefix length to dotted decimal notation
     subnet_mask = prefix_to_mask(prefix_length)
 
-    return ip_add + subnet_mask
+    return ip_add + ' ' + subnet_mask
 
 
 def prefix_to_mask(prefix_length):
@@ -24,15 +24,24 @@ def prefix_to_mask(prefix_length):
     e.g. /24 -> 255.255.255.0
     """
 
+    if prefix_length == 32:
+        return "255.255.255.255"
 
+    octets = []
+    # add '255' octets
+    num_of_255 = prefix_length // 8
+    for i in range(num_of_255):
+        octets.append("255")   
 
-    return
+    # add next octet
+    num_bits_eq_one = prefix_length - num_of_255*8
+    value_octet = 256 - 2**(8 - num_bits_eq_one)
+    octets.append(str(value_octet))
 
+    while len(octets) < 4:
+        octets.append('0')
 
-
-test = "  10.1.1.1/24"
-print(convert_slash_notation(test))
-# should print out '10.1.1.1 255.255.255.0' format
+    return ".".join(octets)
 
 #TODO: add docstring to router function
 
