@@ -6,8 +6,35 @@ def convert_slash_notation(slash_notation):
     e.g. 10.0.0.1/24 -> 10.0.0.1 255.255.255.0
     """
 
+    # strip whitespace and separate address + subnet mask
+    slash_notation = slash_notation.strip()
+    position_slash = slash_notation.find('/')
+    ip_add = slash_notation[:position_slash]
+    prefix_length = slash_notation[position_slash+1:]
+
+    # convert prefix length to dotted decimal notation
+    subnet_mask = prefix_to_mask(prefix_length)
+
+    return ip_add + subnet_mask
+
+
+def prefix_to_mask(prefix_length):
+    """
+    Takes a prefix length as input and transforms it into the corresponding subnet mask.
+    e.g. /24 -> 255.255.255.0
+    """
+
+
+
     return
 
+
+
+test = "  10.1.1.1/24"
+print(convert_slash_notation(test))
+# should print out '10.1.1.1 255.255.255.0' format
+
+#TODO: add docstring to router function
 
 def router(num_router):
     # hostname configuration (if empty will be skipped)
@@ -41,6 +68,6 @@ def router(num_router):
         writer.write('\nend' + '\nsh ip int b' + '\ncopy run start\n')
 
 
-num_routers = int(input("How many routers to set up? "))
-for i in range(num_routers):
-    router(i)
+# num_routers = int(input("How many routers to set up? "))
+# for i in range(num_routers):
+#     router(i)
