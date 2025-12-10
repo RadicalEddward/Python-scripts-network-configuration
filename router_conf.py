@@ -1,4 +1,14 @@
 ## Script start
+
+def convert_slash_notation(slash_notation):
+    """
+    Takes an IP address in slash notation, and returns it in dotted decimal + subnet mask.
+    e.g. 10.0.0.1/24 -> 10.0.0.1 255.255.255.0
+    """
+
+    return
+
+
 def router(num_router):
     # hostname configuration (if empty will be skipped)
     hostname = input("What hostname for the router? ")
